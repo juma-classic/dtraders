@@ -3,22 +3,24 @@
 
 
 :root {
-  --main-theme: #00bcd4;           // Vibrant cyan
-  --bg-gradient: #00bcd4;          // Use cyan for background
-  --card-bg: rgba(0, 188, 212, 0.07);
-  --accent: #00bcd4;
-  --accent2: #00bcd4;
-  --text-primary: #ffffff;
-  --text-secondary: #b2ffff;
-  --border-normal: rgba(0, 188, 212, 0.15);
-  --general-main-1: #00bcd4;
-  --general-section-1: #2fceda;
-  --purchase-main-1: #00bcd4;
-  --button-primary-hover: #33e4f7;
-  --brand-red-coral: #ff4d6d;
-  --text-prominent: #ffffff;
-
+  // Navy Blue Gradient Theme
+  --main-theme: #1e3a8a;                    // Deep navy blue
+  --bg-gradient: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+  --card-bg: rgba(30, 58, 138, 0.1);       // Navy with transparency
+  --accent: #3b82f6;                       // Bright blue accent
+  --accent2: #60a5fa;                      // Lighter blue accent
+  --text-primary: #ffffff;                 // Pure white for main text
+  --text-secondary: #f1f5f9;              // Very light grey-white
+  --border-normal: rgba(59, 130, 246, 0.2); // Blue border with transparency
+  --general-main-1: #1e3a8a;              // Navy blue background
+  --general-section-1: #1e40af;           // Medium navy for sections
+  --purchase-main-1: #3b82f6;             // Bright blue for purchase actions
+  --button-primary-hover: #60a5fa;        // Light blue for hover states
+  --brand-red-coral: #ef4444;             // Vibrant red for danger/alerts
+  --text-prominent: #ffffff;              // White for prominent text
+  --text-accent: #fbbf24;                 // Vibrant amber for accents
 }
+
 // The rest of your SCSS code remains exactly the same...
 
 
@@ -51,12 +53,17 @@
   margin: 0;
 }
 
+
 .free-bots {
   padding: 20px;
-  background-color: var(--card-bg);
-  border-radius: 8px;
-  border: 1px solid var(--border-normal);
-  box-shadow: 0 0 15px rgba(159, 135, 255, 0.1);
+  background: rgba(30, 41, 59, 0.35); /* semi-transparent dark */
+  border-radius: 18px;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  /* Optional: subtle border gradient */
+  border-image: linear-gradient(135deg, rgba(0,255,255,0.18), rgba(0,255,128,0.12), rgba(255,0,255,0.10)) 1;
 }
 
 .free-bots__heading {
@@ -74,19 +81,23 @@
   justify-content: center;
 }
 
+
 .free-bot {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-normal);
-  border-radius: 8px;
-  padding: 15px;
-  width: 200px;
+  background: rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 18px 15px 15px 15px;
+  width: 220px;
   text-align: center;
-  box-shadow: 0 0 15px rgba(159, 135, 255, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px 0 rgba(0, 255, 255, 0.10), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1);
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(159, 135, 255, 0.2);
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: 0 8px 32px 0 rgba(0,255,255,0.18), 0 2px 12px 0 rgba(0,0,0,0.13);
+    border-color: rgba(0,255,255,0.25);
   }
 }
 
@@ -247,7 +258,7 @@
         @include flex-center;  
 
         &:hover {
-          background: rgba(159, 135, 255, 0.1);
+          background: rgba(59, 130, 246, 0.15);
         }
 
         svg {  
@@ -821,7 +832,7 @@
       }
 
       &:hover {
-        background: rgba(159, 135, 255, 0.1);
+        background: rgba(59, 130, 246, 0.1);
       }
     }  
   }  
@@ -893,15 +904,15 @@
 }
 
 .beta-server-bot {
-  color: var(--accent2);
+  color: var(--text-accent);
   margin-left: 8px;
   padding: 4px 8px;
   height: 22px;
   border-radius: 16px;
   font-size: 1.2rem;
-  border: 2px solid var(--accent2);
+  border: 2px solid var(--text-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 247, 255, 0.1);
+  background: rgba(251, 191, 36, 0.1);
 }
