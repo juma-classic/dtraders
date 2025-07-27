@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Traders Den LDP</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    }
+    h1 {
+      color: #2c3e50;
+      margin: 20px 0;
+      font-size: 2.5em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .menu {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .menu span {
+      padding: 10px 20px;
+      background-color: #ecf0f1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .menu span:hover {
+      background-color: #d6eaf8;
+      transform: translateY(-2px);
+    }
+    .menu-active {
+      background-color: #27ae60 !important;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+    }
+    .chartContainer {
+      width: 90%;
+      height: 350px;
+      margin: 30px auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid #dfe6e9;
+      position: relative;
+    }
+    #digits, #headcol, .SpotArrow {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    #digits span, #headcol span, .SpotArrow span {
+      width: 35px;
+      height: 35px;
+      background-color: #ecf0f1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 0.9em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    #footer {
+      margin-top: 40px;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    .powered-by {
+      font-style: italic;
+      color: #95a5a6;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<script>
+  // Symbol mapping from menu label to Deriv symbol code
+  const symbolMap = {
+    v_100: 'R_100',
+    v_10: 'R_10',
+    v_25: 'R_25',
+    v_50: 'R_50',
+    v_75: 'R_75',
+    BEAR: 'RDBEAR',
+    BULL: 'RDBULL'
+  };
+
+  let ws;
+  let currentSymbol = 'R_10';
+
+  function connectWS(symbol) {
+    if (ws) ws.close();
+    ws = new WebSocket('wss://ws.deriv.com/websockets/v3');
+
+    ws.onopen = function () {
+      ws.send(JSON.stringify({
+        "ticks": symbol,
+        "subscribe": 1
+      }));
+      document.getElementById('chartContainer').innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #27ae60;">Loading live data...</div>';
+    };
+
+    ws.onmessage = function (msg) {
+      const data = JSON.parse(msg.data);
+      if (data.tick) {
+        document.getElementById('chartContainer').innerHTML = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color:#34495e;">
+            <div style="font-size:2.5em; font-weight:bold;">${data.tick.quote}</div>
+            <div style="font-size:1em; color:#888;">(${data.tick.symbol})</div>
+            <div style="margin-top:10px; font-size:0.9em;">${new Date(data.tick.epoch * 1000).toLocaleTimeString()}</div>
+          </div>
+        `;
+      }
+    };
+
+    ws.onerror = function () {
+      document.getElementById('chartContainer').innerHTML = '<div style="color:red;">WebSocket Error!</div>';
+    };
+    ws.onclose = function () {
+      // Optionally handle reconnects here
+    };
+  }
+
+  // Add click handlers for menu
+  document.querySelectorAll('.menu span').forEach(el => {
+    el.onclick = function () {
+      document.querySelectorAll('.menu span').forEach(s => s.classList.remove('menu-active'));
+      el.classList.add('menu-active');
+      const symbol = symbolMap[el.textContent.trim()];
+      if (symbol) {
+        currentSymbol = symbol;
+        connectWS(symbol);
+      }
+    };
+  });
+
+  // Initial connection
+  connectWS(currentSymbol);
+</script>
+<body class="EN">
+  <h1>Traders Den LDP 📊</h1>
+  <div class="menu">
+    <span class="" title="R_100" data-full-name="Volatility 100">v_100</span>
+    <span class="menu-active" title="R_10" data-full-name="Volatility 10">v_10</span>
+    <span class="" title="R_25" data-full-name="Volatility 25">v_25</span>
+    <span class="" title="R_50" data-full-name="Volatility 50">v_50</span>
+    <span class="" title="R_75" data-full-name="Volatility 75">v_75</span>
+    <span class="" title="RDBEAR" data-full-name="Bear Market">BEAR</span>
+    <span class="" title="RDBULL" data-full-name="Bull Market">BULL</span>
+  </div>
+  
+  <div class="chartContainer" id="chartContainer">
+    <!-- Chart will be rendered here -->
+    <div style="display: flex; justify-content: center; align-items: center; height: 100%; color: #95a5a6;">
+      [Chart Area - To be implemented]
+    </div>
+  </div>
+  
+  <div id="SpotArrow" class="SpotArrow">
+    <span class="_">↑</span><span class="_">↓</span><span class="_">→</span>
+    <span class="_">←</span><span class="_">↗</span><span class="_">↘</span>
+    <span class="_">↙</span><span class="_">↖</span><span class="_">↕</span>
+    <span class="_">↔</span><span class="_">↑</span><span class="_">↓</span>
+    <span class="_">→</span><span class="_">←</span><span class="_">↗</span>
+    <span class="_">↘</span><span class="_">↙</span><span class="_">↖</span>
+  </div>
+  
+  <div id="digits" class="digits">
+    <span class="_">1</span><span class="_">2</span><span class="_">3</span>
+    <span class="_">4</span><span class="_">5</span><span class="_">6</span>
+    <span class="_">7</span><span class="_">8</span><span class="_">9</span>
+    <span class="_">0</span><span class="_">1</span><span class="_">2</span>
+    <span class="_">3</span><span class="_">4</span>
+  </div>
+  
+  <div id="headcol" class="headcol">
+    <span class="_">A</span><span class="_">B</span><span class="_">C</span>
+    <span class="_">D</span><span class="_">E</span><span class="_">F</span>
+    <span class="_">G</span><span class="_">H</span><span class="_">I</span>
+    <span class="_">J</span><span class="_">K</span><span class="_">L</span>
+    <span class="_">M</span><span class="_">N</span>
+  </div>
+  
+  <p class="powered-by">powered by MESOFLIX</p>
+  <div id="footer">
+    &copy; 2025 Traders Den LDP. All rights reserved.
+  </div>
+</body>
+</html>

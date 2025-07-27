@@ -1,0 +1,384 @@
+:root {
+    /* Minimalist Color Palette */
+    --navy-blue: #1e3a8a;
+    --dark-navy: #1e40af;
+    --light-navy: #3b82f6;
+    --pure-white: #ffffff;
+    --off-white: #f8fafc;
+    --light-gray: #f1f5f9;
+    --medium-gray: #64748b;
+    --dark-gray: #334155;
+    --pure-black: #000000;
+    --soft-black: #0f172a;
+    
+    /* Status Colors */
+    --success-green: #22c55e;
+    --warning-orange: #f97316;
+    --danger-red: #ef4444;
+    --info-blue: #3b82f6;
+    
+    /* Minimalist Shadows */
+    --shadow-minimal: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-large: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Minimalist Body Styling */
+[data-theme="minimalist"] body {
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background: var(--pure-white) !important;
+    color: var(--soft-black) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+}
+
+/* Minimalist Container */
+[data-theme="minimalist"] .container {
+    background: var(--pure-white) !important;
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--shadow-medium) !important;
+    backdrop-filter: none !important;
+}
+
+/* Clean Header */
+[data-theme="minimalist"] header {
+    background: var(--navy-blue) !important;
+    border-bottom: none !important;
+    border-radius: 8px 8px 0 0 !important;
+    padding: 24px !important;
+}
+
+[data-theme="minimalist"] header::after {
+    display: none !important;
+}
+
+/* Minimalist Title */
+[data-theme="minimalist"] h1 {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: var(--pure-white) !important;
+    text-shadow: none !important;
+    letter-spacing: -0.025em !important;
+    animation: none !important;
+    margin: 0 0 16px 0 !important;
+}
+
+[data-theme="minimalist"] h1::before,
+[data-theme="minimalist"] h1::after {
+    display: none !important;
+}
+
+/* Clean Market Controls */
+[data-theme="minimalist"] .market-controls {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+}
+
+/* Clean Select Elements */
+[data-theme="minimalist"] select {
+    background: var(--pure-white) !important;
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 6px !important;
+    color: var(--soft-black) !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    box-shadow: var(--shadow-minimal) !important;
+    font-family: 'Inter', sans-serif !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+}
+
+[data-theme="minimalist"] select:hover {
+    border-color: var(--navy-blue) !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1) !important;
+    background: var(--off-white) !important;
+}
+
+[data-theme="minimalist"] select:focus {
+    outline: none !important;
+    border-color: var(--navy-blue) !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1) !important;
+}
+
+/* Minimalist Digits */
+[data-theme="minimalist"] .digit {
+    background: var(--pure-white) !important;
+    border: 2px solid var(--light-gray) !important;
+    border-radius: 50% !important;
+    color: var(--soft-black) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+    width: 80px !important;
+    height: 80px !important;
+    clip-path: none !important;
+    box-shadow: var(--shadow-minimal) !important;
+    text-shadow: none !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-theme="minimalist"] .digit:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-medium) !important;
+}
+
+[data-theme="minimalist"] .digit.active {
+    background: var(--navy-blue) !important;
+    border-color: var(--dark-navy) !important;
+    color: var(--pure-white) !important;
+    transform: scale(1.1) !important;
+    box-shadow: var(--shadow-large) !important;
+    text-shadow: none !important;
+    animation: none !important;
+}
+
+/* Digit States - Following Requirements */
+[data-theme="minimalist"] .digit.most-common {
+    background: var(--success-green) !important;
+    border-color: var(--success-green) !important;
+    color: var(--pure-white) !important;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2) !important;
+}
+
+[data-theme="minimalist"] .digit.second-most-common {
+    border: 3px solid var(--info-blue) !important;
+    background: var(--pure-white) !important;
+    color: var(--soft-black) !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+[data-theme="minimalist"] .digit.least-common {
+    background: var(--danger-red) !important;
+    border-color: var(--danger-red) !important;
+    color: var(--pure-white) !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+[data-theme="minimalist"] .digit.second-least-common {
+    border: 3px solid var(--warning-orange) !important;
+    background: var(--pure-white) !important;
+    color: var(--soft-black) !important;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Clean Digit Display */
+[data-theme="minimalist"] .digit-display {
+    background: var(--off-white) !important;
+    border-top: 1px solid var(--light-gray) !important;
+}
+
+[data-theme="minimalist"] .chart-digit-container {
+    background: var(--pure-white) !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-minimal) !important;
+}
+
+/* Minimalist Cursor */
+[data-theme="minimalist"] .cursor {
+    border-left: 8px solid transparent !important;
+    border-right: 8px solid transparent !important;
+    border-bottom: 12px solid var(--navy-blue) !important;
+    filter: none !important;
+    animation: none !important;
+}
+
+/* Clean Buttons */
+[data-theme="minimalist"] .btn,
+[data-theme="minimalist"] .royal-btn {
+    background: var(--pure-white) !important;
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 6px !important;
+    color: var(--soft-black) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    clip-path: none !important;
+    box-shadow: var(--shadow-minimal) !important;
+    transition: all 0.2s ease !important;
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+}
+
+[data-theme="minimalist"] .btn:hover,
+[data-theme="minimalist"] .royal-btn:hover {
+    background: var(--navy-blue) !important;
+    border-color: var(--navy-blue) !important;
+    color: var(--pure-white) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow-medium) !important;
+    text-shadow: none !important;
+}
+
+/* Clean Sections */
+[data-theme="minimalist"] .pattern-analysis,
+[data-theme="minimalist"] .stats,
+[data-theme="minimalist"] .control-panel {
+    background: var(--pure-white) !important;
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--shadow-minimal) !important;
+    backdrop-filter: none !important;
+    margin: 16px 0 !important;
+    padding: 20px !important;
+}
+
+[data-theme="minimalist"] .pattern-analysis h3 {
+    font-family: 'Inter', sans-serif !important;
+    color: var(--navy-blue) !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    text-align: left !important;
+    margin-bottom: 16px !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    text-shadow: none !important;
+}
+
+/* Clean Boxes */
+[data-theme="minimalist"] .pattern-box,
+[data-theme="minimalist"] .stat-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px !important;
+    background: var(--off-white) !important;
+    border: 1px solid var(--light-gray) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+    clip-path: none !important;
+    margin-bottom: 8px !important;
+}
+
+[data-theme="minimalist"] .pattern-box:hover,
+[data-theme="minimalist"] .stat-box:hover {
+    background: var(--light-gray) !important;
+    border-color: var(--navy-blue) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow-minimal) !important;
+}
+
+[data-theme="minimalist"] .pattern-box span:first-child,
+[data-theme="minimalist"] .stat-box span:first-child {
+    font-weight: 500 !important;
+    color: var(--dark-gray) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+}
+
+[data-theme="minimalist"] .pattern-box span:last-child,
+[data-theme="minimalist"] .stat-box span:last-child {
+    font-weight: 600 !important;
+    color: var(--navy-blue) !important;
+    text-align: right !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    text-shadow: none !important;
+}
+
+/* Clean Live Indicator */
+[data-theme="minimalist"] .live-indicator {
+    background: var(--light-gray) !important;
+    border: 1px solid var(--medium-gray) !important;
+    border-radius: 6px !important;
+    color: var(--dark-gray) !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    box-shadow: none !important;
+    padding: 8px 16px !important;
+}
+
+[data-theme="minimalist"] .live-indicator.connected {
+    background: var(--success-green) !important;
+    border-color: var(--success-green) !important;
+    color: var(--pure-white) !important;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2) !important;
+    animation: none !important;
+}
+
+/* Clean Percentage */
+[data-theme="minimalist"] .percentage {
+    background: var(--light-gray) !important;
+    border: 1px solid var(--medium-gray) !important;
+    border-radius: 4px !important;
+    color: var(--dark-gray) !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-family: 'Inter', sans-serif !important;
+    text-shadow: none !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+}
+
+/* Remove Animations */
+[data-theme="minimalist"] .container {
+    animation: none !important;
+}
+
+[data-theme="minimalist"] .container::before {
+    display: none !important;
+}
+
+[data-theme="minimalist"] .control-panel::before {
+    display: none !important;
+}
+
+/* Status Colors */
+[data-theme="minimalist"] .status-connecting {
+    color: var(--warning-orange) !important;
+}
+
+[data-theme="minimalist"] .status-connected {
+    color: var(--success-green) !important;
+}
+
+[data-theme="minimalist"] .status-disconnected {
+    color: var(--danger-red) !important;
+}
+
+/* Grid Layouts */
+[data-theme="minimalist"] .pattern-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 8px;
+}
+
+[data-theme="minimalist"] .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    [data-theme="minimalist"] h1 {
+        font-size: 20px !important;
+    }
+    
+    [data-theme="minimalist"] .digit {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 20px !important;
+    }
+    
+    [data-theme="minimalist"] .btn,
+    [data-theme="minimalist"] .royal-btn {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+    }
+}

@@ -1,0 +1,547 @@
+@use 'components/shared/styles/mixins' as *;
+
+.tutorials-wrap {
+    .no-search {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        word-break: break-all;
+    }
+
+    .dc-dialog {
+        &__dialog {
+            width: 80vw;
+            height: 80vh;
+            max-width: unset;
+            max-height: unset;
+            padding: 0;
+            border-radius: 0;
+            position: relative;
+            z-index: 1;
+            background: #000080; /* Navy blue background */
+
+            @include mobile-screen {
+                width: 94%;
+                height: auto;
+                max-height: 80%;
+            }
+
+            @include tablet-screen {
+                height: 40vh;
+            }
+        }
+
+        &__header-wrapper {
+            &--end {
+                position: absolute;
+                top: 0;
+                padding: 0.8rem;
+                z-index: 90;
+                color: #00FF00; /* Luminous green text */
+            }
+        }
+
+        &__content {
+            max-width: unset;
+            margin-bottom: 0;
+            height: 100%;
+            color: #00FF00; /* Luminous green text */
+        }
+
+        &__footer {
+            display: none;
+        }
+    }
+
+    &--placeholder {
+        width: 28rem;
+        background: #000080; /* Navy blue */
+    }
+
+    &--tour {
+        cursor: pointer;
+        color: #00FF00; /* Luminous green */
+    }
+
+    &__group {
+        margin-bottom: 5.2rem;
+        color: #00FF00; /* Luminous green text */
+
+        &__guides {
+            display: flex;
+            margin-top: 2.4rem;
+            max-width: 80vw;
+            overflow: auto;
+            border: 1px solid #00FF00; /* Luminous green border */
+
+            @include mobile-or-tablet-screen {
+                display: unset;
+            }
+        }
+
+        &__title {
+            color: #00FF00; /* Luminous green */
+            
+            @include mobile-or-tablet-screen {
+                margin-bottom: 1.4rem;
+            }
+        }
+
+        &__nosearch {
+            @extend .no-search;
+            color: #00FF00; /* Luminous green */
+        }
+
+        &__cards {
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            margin-inline-end: 2.4rem;
+            background: #000080; /* Navy blue */
+            border: 1px solid #00FF00; /* Luminous green border */
+
+            @include mobile-or-tablet-screen {
+                flex-direction: row;
+                width: auto;
+
+                span {
+                    text-align: start;
+                    width: 100%;
+                    color: #00FF00; /* Luminous green */
+                }
+            }
+        }
+
+        @include mobile-or-tablet-screen {
+            flex-direction: column;
+            margin-bottom: 2.2rem;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__placeholder {
+        @include flex-center;
+
+        background: #000080; /* Navy blue */
+        margin-bottom: 0.8rem;
+        height: 16rem;
+        width: 28rem;
+        background-size: 100% 100%;
+        border: 1px solid #00FF00; /* Luminous green border */
+
+        &__description {
+            width: 28rem;
+            color: #00FF00; /* Luminous green */
+
+            @include mobile-or-tablet-screen {
+                text-align: start;
+                width: calc(100% - 14.8rem);
+            }
+        }
+
+        @include mobile-or-tablet-screen {
+            height: 8.7rem;
+            width: 14.8rem;
+            margin: 0 0.8rem 0.8rem 0;
+        }
+
+        &__tours {
+            height: 13.5rem;
+            background-size: contain;
+            margin: 0 0.8rem 0.8rem 0;
+            width: 21.5rem;
+            cursor: pointer;
+            background: #000080; /* Navy blue */
+            border: 1px solid #00FF00; /* Luminous green border */
+
+            @include mobile-or-tablet-screen {
+                height: 8.7rem;
+                width: 14.8rem;
+            }
+        }
+
+        &__button-group {
+            @include flex-center;
+
+            padding: 1.6rem 3.2rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            background-color: rgba(0, 255, 0, 0.3); /* Semi-transparent luminous green */
+            color: #000080; /* Navy blue text */
+
+            &--play {
+                filter: invert(1);
+            }
+
+            @include mobile-or-tablet-screen {
+                padding: 0.8rem 1.6rem;
+            }
+        }
+
+        &--disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    }
+}
+
+.faq {
+    &__wrapper {
+        overflow: auto;
+        padding-bottom: 18px;
+        background: #000080; /* Navy blue */
+
+        &__nosearch {
+            @extend .no-search;
+            color: #00FF00; /* Luminous green */
+        }
+
+        &__content {
+            width: 85%;
+            color: #00FF00; /* Luminous green */
+
+            @include mobile-or-tablet-screen {
+                width: 100%;
+            }
+        }
+
+        .dc-accordion {
+            &__item {
+                border: unset;
+                border-bottom: 0.1rem solid #00FF00; /* Luminous green border */
+
+                &:last-child {
+                    margin-bottom: 2rem;
+                }
+
+                &-header {
+                    @include flex-center(space-between);
+                    color: #00FF00; /* Luminous green */
+                }
+
+                &-content {
+                    .loss-control {
+                        width: 80%;
+                        color: #00FF00; /* Luminous green */
+
+                        @include mobile-or-tablet-screen {
+                            width: 100%;
+                        }
+                    }
+
+                    img {
+                        width: 45%;
+                        border: 1px solid #00FF00; /* Luminous green border */
+                    }
+
+                    @include mobile-or-tablet-screen {
+                        width: 100%;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__header {
+            margin: 0 0 1rem 0.5rem;
+            color: #00FF00; /* Luminous green */
+        }
+    }
+}
+
+.tutorials-wrapper {
+    width: 100%;
+    background: #000080; /* Navy blue */
+
+    @include tablet-screen {
+        display: flex;
+        justify-content: center;
+    }
+
+    .dc-tabs {
+        &__wrapper {
+            padding: 1.6rem 0.8rem;
+            background: #000080; /* Navy blue */
+
+            &__group {
+                @include flex-center;
+
+                width: 22.5rem;
+                position: relative;
+                padding: 1.6rem 0.8rem;
+                z-index: 1;
+                background: #000080; /* Navy blue */
+
+                .search-icon {
+                    cursor: pointer;
+                    position: absolute;
+                    inset-inline-start: 1.8rem;
+                    z-index: 1;
+                    fill: #00FF00; /* Luminous green */
+                }
+
+                .close-icon {
+                    cursor: pointer;
+                    position: absolute;
+                    inset-inline-end: 1.5rem;
+                    z-index: 1;
+                    color: #00FF00; /* Luminous green */
+                }
+
+                &__search-input {
+                    width: 100%;
+                    height: 3.2rem;
+                    border-radius: 8px;
+                    outline: none;
+                    background-color: #000080; /* Navy blue */
+                    font-size: 1.4rem;
+                    padding: 0 3.6rem;
+                    border: solid 1px #00FF00; /* Luminous green border */
+                    color: #00FF00; /* Luminous green text */
+
+                    &::placeholder {
+                        opacity: 0.4;
+                        color: #00FF00; /* Luminous green */
+                    }
+
+                    &:focus {
+                        border-color: #00FF00; /* Luminous green */
+                    }
+
+                    @include mobile-or-tablet-screen {
+                        width: 100%;
+                        margin-inline-start: 17px;
+                        height: 4rem;
+                        padding-inline-start: 13px;
+                        margin-inline-end: 0;
+                    }
+                }
+            }
+
+            .dc-tabs {
+                .tutorials-search {
+                    .faq__wrapper {
+                        height: unset;
+                    }
+                }
+
+                &__content {
+                    margin: -6.5rem 2.4rem;
+                    width: 100%;
+                    max-height: calc(100vh - 20rem);
+                    overflow: auto;
+                    color: #00FF00; /* Luminous green */
+
+                    .tutorials-wrap {
+                        margin-bottom: 3rem;
+                    }
+
+                    &--no-result {
+                        @include flex-center(flex-start);
+
+                        flex-direction: column;
+                        height: 100vh;
+                        margin: unset;
+                        color: #00FF00; /* Luminous green */
+
+                        svg {
+                            margin-bottom: 2.4rem;
+                            fill: #00FF00; /* Luminous green */
+                        }
+
+                        &__title,
+                        &__content {
+                            margin-bottom: 0.8rem;
+                            word-break: break-word;
+                            text-align: center;
+                            color: #00FF00; /* Luminous green */
+                        }
+                    }
+                }
+
+                &--top {
+                    display: flex;
+                    background: #000080; /* Navy blue */
+
+                    @include mobile-or-tablet-screen {
+                        height: calc(100vh - 22rem);
+                    }
+                }
+
+                &__list {
+                    width: 22.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 0.8rem;
+                    background: #000080; /* Navy blue */
+
+                    &--border-bottom {
+                        padding: 0 0.8rem;
+                        height: 100vh;
+                        background: #000080; /* Navy blue */
+
+                        li {
+                            white-space: unset;
+                            text-align: start;
+                            line-height: normal;
+                            color: #00FF00; /* Luminous green */
+                        }
+
+                        &:first-child {
+                            margin-top: -7.2rem;
+                        }
+
+                        .tutorials-guide:nth-child(1),
+                        .tutorials-faq:nth-child(2),
+                        .tutorials-qs-guide:nth-child(3) {
+                            background-color: rgba(0, 255, 0, 0.2); /* Semi-transparent luminous green */
+                            border-radius: 0.4rem 0.4rem 0 0;
+                            transition: all 0.6s;
+                            font-weight: bold;
+                            pointer-events: none;
+                            color: #00FF00; /* Luminous green */
+                        }
+                    }
+                }
+
+                &__item {
+                    width: 100% !important;
+                    background: #000080; /* Navy blue */
+                    color: #00FF00; /* Luminous green */
+
+                    &--top {
+                        &:first-child {
+                            margin-top: 7.5rem;
+                        }
+
+                        &:nth-last-child(2) {
+                            display: none;
+                        }
+                    }
+
+                    &--tutorials {
+                        display: flex;
+                        justify-content: flex-start;
+                        padding: 0 1.6rem;
+                    }
+                }
+
+                &__active {
+                    background-color: rgba(0, 255, 0, 0.2); /* Semi-transparent luminous green */
+                    border-radius: 0.4rem 0.4rem 0 0;
+                    transition: all 0.6s;
+                    color: #00FF00; /* Luminous green */
+                }
+            }
+        }
+    }
+}
+
+.tutorials-mobile {
+    padding: 1.6rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #000080; /* Navy blue */
+
+    @include tablet-screen {
+        width: 100%;
+        max-width: 60rem;
+    }
+
+    &__select {
+        height: 4rem;
+        margin-bottom: 1.5rem;
+        fill: #00FF00; /* Luminous green */
+        background: #000080; /* Navy blue */
+
+        @include flex-center;
+
+        @include mobile-or-tablet-screen {
+            .dc-select-native {
+                position: relative;
+                margin-inline-end: 17px;
+                transition: all 0.3s;
+                color: #00FF00; /* Luminous green */
+            }
+
+            &--show-search {
+                .dc-select-native {
+                    width: 0;
+                    margin: 0;
+                    visibility: hidden;
+                }
+
+                .dc-tabs__wrapper__group__search-input {
+                    width: 100%;
+                }
+
+                .arrow-left-bold {
+                    display: block;
+                    color: #00FF00; /* Luminous green */
+                }
+
+                .close-icon {
+                    display: block;
+                    cursor: pointer;
+                    position: absolute;
+                    inset-inline-end: 2.5rem;
+                    z-index: 1;
+                    color: #00FF00; /* Luminous green */
+                }
+
+                .dc-select-native__display,
+                .dc-select-native__picker,
+                .search-icon {
+                    display: none;
+                }
+            }
+
+            &--hide-search {
+                .dc-tabs__wrapper__group__search-input {
+                    width: 0;
+                    display: none;
+                }
+
+                .arrow-left-bold,
+                .close-icon {
+                    display: none;
+                }
+
+                .search-icon {
+                    display: block;
+                    fill: #00FF00; /* Luminous green */
+                }
+            }
+        }
+    }
+
+    &__guide,
+    &__faq,
+    &__qs-guide,
+    &__search {
+        @include mobile-or-tablet-screen {
+            height: calc(100vh - 250px);
+            overflow: auto;
+            background: #000080; /* Navy blue */
+
+            .tutorials-wrap {
+                margin-bottom: 2rem;
+            }
+        }
+    }
+
+    &__search {
+        @include mobile-or-tablet-screen {
+            .tutorials-wrap,
+            .faq__wrapper {
+                overflow: unset;
+            }
+        }
+    }
+}

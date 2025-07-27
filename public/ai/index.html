@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced trading analysis tool for Deriv markets with real-time chart and digit analysis">
+    <meta name="keywords" content="trading, analysis, deriv, volatility, charts, forex">
+    <meta name="author" content="Dexterator">
+    <meta name="theme-color" content="#032942" id="theme-color-meta">
+    <meta name="msapplication-navbutton-color" content="#032942">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>Dexterator Analysis Tool</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../deriv-logo.svg">
+    <link rel="apple-touch-icon" href="../deriv-logo.png">
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="royal-majesty.css">
+    
+    <!-- Load Google Fonts for Royal Theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body data-theme="royal">
+    <!-- Theme Switch Button -->
+    <button class="theme-switch" id="themeSwitch">👑 Royal Majesty</button>
+    
+    <div class="container">
+        <header>
+            <h1>Dexterator Analysis Tool</h1>
+            <div class="market-controls">
+                <div class="market-selector">
+                    <label for="symbol">Market:</label>
+                    <select id="symbol" aria-label="Select trading market">                
+  <option value="R_10">Volatility 10 Index</option>
+  <option value="R_10_1S">Volatility 10 (1s) Index</option>
+  <option value="R_25">Volatility 25 Index</option>
+  <option value="R_25_1S">Volatility 25 (1s) Index</option>
+  <option value="R_50">Volatility 50 Index</option>
+  <option value="R_50_1S">Volatility 50 (1s) Index</option>
+  <option value="R_75">Volatility 75 Index</option>
+  <option value="R_75_1S">Volatility 75 (1s) Index</option>
+  <option value="R_100">Volatility 100 Index</option>
+  <option value="R_100_1S">Volatility 100 (1s) Index</option>
+  <option value="1HZ10V">Jump 10 Index</option>
+  <option value="1HZ25V">Jump 25 Index</option>
+  <option value="1HZ50V">Jump 50 Index</option>
+  <option value="1HZ75V">Jump 75 Index</option>
+  <option value="1HZ100V">Jump 100 Index</option>
+  <option value="BOOM300N">Boom 300 Index</option>
+  <option value="BOOM500N">Boom 500 Index</option>
+  <option value="BOOM1000N">Boom 1000 Index</option>
+  <option value="CRASH300N">Crash 300 Index</option>
+  <option value="CRASH500N">Crash 500 Index</option>
+  <option value="CRASH1000N">Crash 1000 Index</option>
+</select>
+                </div>
+                <div class="timeframe-selector">
+                    <label for="timeframe">Candle Time:</label>
+                    <select id="timeframe">
+                        <option value="60">1 Minute</option>
+                        <option value="120" selected>2 Minutes</option>
+                        <option value="300">5 Minutes</option>
+                        <option value="900">15 Minutes</option>
+                    </select>
+                </div>
+                <div id="status" class="status-connecting">Connecting...</div>
+            </div>
+        </header>
+
+        <div class="chart-digit-container">
+            <div class="chart-container" id="priceChart"></div>
+            <div class="digit-display" id="digitDisplay"></div>
+        </div>
+        
+        <!-- Historical Pattern Analysis -->
+        <div class="pattern-analysis">
+            <h3>📊 Pattern Analysis</h3>
+            <div class="pattern-stats">
+                <div class="pattern-box">
+                    <span>Last 10 Digits:</span>
+                    <span id="lastTenDigits">Loading...</span>
+                </div>
+                <div class="pattern-box">
+                    <span>Most Common Sequence:</span>
+                    <span id="commonSequence">Analyzing...</span>
+                </div>
+                <div class="pattern-box">
+                    <span>Candle Pattern:</span>
+                    <span id="candlePattern">Waiting for data...</span>
+                </div>
+                <div class="pattern-box">
+                    <span>Trend Direction:</span>
+                    <span id="trendDirection">Neutral</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Updated control panel with proper royal-btn classes -->
+        <div class="control-panel">
+            <button id="resetStats" class="royal-btn danger">🔄 Reset Statistics</button>
+            <button id="toggleSound" class="royal-btn" disabled style="opacity: 0.5;">🔇 Audio Disabled</button>
+            <button id="exportData" class="royal-btn success">📊 Export Data</button>
+            <div class="live-indicator">
+                <span>🔴 Live Data Status</span>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <span>Ticks:</span>
+                <span id="totalTicks">0</span>
+            </div>
+            <div class="stat-box" title="The 2nd decimal digit - if missing, treated as 0 (e.g., 121.30 → 0)">
+                <span>2nd Decimal:</span>
+                <span id="currentDigit">-</span>
+            </div>
+            <div class="stat-box" title="Always shows price with 2 decimal places (e.g., 121.00)">
+                <span>Price:</span>
+                <span id="currentPrice">-</span>
+            </div>
+            <div class="stat-box" id="currentCandlePrice">
+                <span>Candle:</span>
+                <span id="candlePriceValue">-</span>
+            </div>
+            <!-- Enhanced stats -->
+            <div class="stat-box">
+                <span>Hot Digit:</span>
+                <span id="hotDigit">-</span>
+            </div>
+            <div class="stat-box">
+                <span>Cold Digit:</span>
+                <span id="coldDigit">-</span>
+            </div>
+            <div class="stat-box">
+                <span>Analysis Ready:</span>
+                <span id="analysisStatus">Waiting...</span>
+            </div>
+            <div class="stat-box">
+                <span>Live Sync:</span>
+                <span id="liveStatus">🔴 Offline</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+  
+
+</body>
+</html>
