@@ -94,9 +94,14 @@ const AppWrapper = observer(() => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [bots, setBots] = useState([]);
+    type BotType = {
+        title: string;
+        image: string;
+        filePath: string;
+        xmlContent: string;
+    };
+    const [bots, setBots] = useState<BotType[]>([]);
     const [analysisToolUrl, setAnalysisToolUrl] = useState('ai');
-
     const isAnalysisToolActive = active_tab === ANALYSIS_TOOL;
 
     useEffect(() => {
@@ -113,15 +118,11 @@ const AppWrapper = observer(() => {
     useEffect(() => {
         const fetchBots = async () => {
             const botFiles = [
-                
                 'Dexterator CFX Hit&Run by Dexter.xml',
-                'Dexterator AI .xml',
                 'M27 Auto Switch bot 2024 (1).xml',
                 '(eRe Test 1)Even Odd Ghost V1 by Dexter.xml',
                 'updated CFX Auto-Bot by Dexterator.xml',
                 'Over_Under Ghost v2 - by Elvis Trades.xml',
-
-    
             ];
             const botPromises = botFiles.map(async (file) => {
                 try {
@@ -149,19 +150,24 @@ const AppWrapper = observer(() => {
         fetchBots();
     }, []);
 
-    const handleBotClick = useCallback(async (bot: { filePath: string; xmlContent: string }) => {
+    const handleBotClick = useCallback(async (bot) => {
         setActiveTab(DBOT_TABS.BOT_BUILDER);
         try {
-            if (typeof load_modal.loadFileFromContent === 'function') {
-                await load_modal.loadFileFromContent(bot.xmlContent);
+            if (typeof load_modal.loadStrategyToBuilder === 'function') {
+                await load_modal.loadStrategyToBuilder({
+                    id: bot.filePath, // Use filePath as id (or generate a unique id if needed)
+                    name: bot.title,
+                    xml: bot.xmlContent,
+                    save_type: 'LOCAL', // or another type if needed
+                });
             } else {
-                console.error("loadFileFromContent is not defined on load_modal");
+                console.error("loadStrategyToBuilder is not defined on load_modal");
             }
-            updateWorkspaceName(bot.xmlContent);
+            updateWorkspaceName();
         } catch (error) {
             console.error("Error loading bot file:", error);
         }
-    }, [setActiveTab, load_modal, updateWorkspaceName]);
+    }, [setActiveTab, load_modal]);
 
     const handleOpen = useCallback(async () => {
         await load_modal.loadFileFromRecent();
@@ -268,7 +274,10 @@ const AppWrapper = observer(() => {
                             </div>
                         </div>
                         {/* FREE BOTS TAB */}
-                        <div label={<><FreeBotsIcon /><Localize i18n_default_text='Free Bots' /></>} id="id-free-bots">
+                        <div
+                            label={<><FreeBotsIcon /><Localize i18n_default_text='Free Bots' /></>}
+                            id="id-free-bots"
+                        >
                             <div
                                 className="free-bots"
                                 style={{
@@ -315,58 +324,83 @@ const AppWrapper = observer(() => {
                                             justifyContent: "center"
                                         }}
                                     >
-                                        {bots.map((bot, index) => (
-                                            <li
-                                                className="free-bot"
-                                                key={index}
-                                                style={{
-                                                    background: "#fff",
-                                                    color: "#151a23",
-                                                    borderRadius: "8px",
-                                                    padding: "1.2rem 1rem",
-                                                    minWidth: "180px",
-                                                    maxWidth: "220px",
-                                                    flex: "1 1 200px",
-                                                    boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    alignItems: "center"
-                                                }}
-                                            >
-                                                <BotIcon style={{ fontSize: "2rem", marginBottom: "0.8rem", color: "#18213a" }} />
-                                                <div className="free-bot__details" style={{ textAlign: "center" }}>
-                                                    <h3
-                                                        className="free-bot__title"
-                                                        style={{
-                                                            color: "#18213a",
-                                                            fontSize: "1.2rem",
-                                                            fontWeight: 700,
-                                                            margin: "0 0 0.7rem 0"
-                                                        }}
-                                                    >
-                                                        {bot.title}
-                                                    </h3>
-                                                    <button
-                                                        style={{
-                                                            padding: "0.5rem 1.3rem",
-                                                            fontSize: "1rem",
-                                                            background: "#183a82",
-                                                            color: "#fff",
-                                                            border: "none",
-                                                            borderRadius: "24px",
-                                                            cursor: "pointer",
-                                                            fontWeight: 700,
-                                                            marginTop: "0.5rem",
-                                                            letterSpacing: "0.02em",
-                                                            transition: "background 0.2s"
-                                                        }}
-                                                        onClick={() => handleBotClick(bot)}
-                                                    >
-                                                        Load
-                                                    </button>
-                                                </div>
+                                        {bots.length === 0 ? (
+                                            <li style={{ textAlign: "center", width: "100%", color: "#888" }}>
+                                                <Localize i18n_default_text="No free bots available." />
                                             </li>
-                                        ))}
+                                        ) : (
+                                            bots.map((bot, index) => (
+                                                <li
+                                                    className="free-bot"
+                                                    key={index}
+                                                    style={{
+                                                        background: "#fff",
+                                                        color: "#151a23",
+                                                        borderRadius: "8px",
+                                                        padding: "1.2rem 1rem",
+                                                        minWidth: "180px",
+                                                        maxWidth: "220px",
+                                                        flex: "1 1 200px",
+                                                        boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        alignItems: "center"
+                                                    }}
+                                                >
+                                                    <div style={{
+                                                        width: '48px',
+                                                        height: '48px',
+                                                        borderRadius: '50%',
+                                                        background: 'linear-gradient(135deg, #00ffb8 0%, #00c3ff 100%)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        marginBottom: '0.8rem',
+                                                        boxShadow: '0 2px 8px rgba(0,255,200,0.10)'
+                                                    }}>
+                                                        <span style={{
+                                                            color: '#18213a',
+                                                            fontWeight: 900,
+                                                            fontSize: '1.3rem',
+                                                            letterSpacing: '0.08em',
+                                                            fontFamily: 'Orbitron, Exo, Roboto Mono, Arial, sans-serif',
+                                                            textShadow: '0 1px 4px #fff8, 0 0px 2px #00c3ff88'
+                                                        }}>BOT</span>
+                                                    </div>
+                                                    <div className="free-bot__details" style={{ textAlign: "center" }}>
+                                                        <h3
+                                                            className="free-bot__title"
+                                                            style={{
+                                                                color: "#18213a",
+                                                                fontSize: "1.2rem",
+                                                                fontWeight: 700,
+                                                                margin: "0 0 0.7rem 0"
+                                                            }}
+                                                        >
+                                                            {bot.title}
+                                                        </h3>
+                                                        <button
+                                                            style={{
+                                                                padding: "0.5rem 1.3rem",
+                                                                fontSize: "1rem",
+                                                                background: "#00c853",
+                                                                color: "#fff",
+                                                                border: "none",
+                                                                borderRadius: "24px",
+                                                                cursor: "pointer",
+                                                                fontWeight: 700,
+                                                                marginTop: "0.5rem",
+                                                                letterSpacing: "0.02em",
+                                                                transition: "background 0.2s"
+                                                            }}
+                                                            onClick={() => handleBotClick(bot)}
+                                                        >
+                                                            Load
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            ))
+                                        ) || null}
                                     </ul>
                                 </div>
                                 <style>
