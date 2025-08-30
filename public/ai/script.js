@@ -540,3 +540,35 @@ function updateLast50OE() {
 // Start WebSocket on page load
 startWebSocket();
 initializeCharts();
+
+// Theme Toggle Functionality
+document.addEventListener('DOMContentLoaded', function () {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (themeToggle) {
+        // Load saved theme or default to navy
+        const savedTheme = localStorage.getItem('theme') || 'navy';
+        body.setAttribute('data-theme', savedTheme);
+        updateToggleButton(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'navy' ? 'light' : 'navy';
+
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleButton(newTheme);
+        });
+    }
+
+    function updateToggleButton(theme) {
+        if (theme === 'navy') {
+            themeToggle.textContent = 'Dark Navy';
+            themeToggle.title = 'Switch to Light Theme';
+        } else {
+            themeToggle.textContent = 'Light Blue';
+            themeToggle.title = 'Switch to Navy Theme';
+        }
+    }
+});

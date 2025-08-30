@@ -1,28 +1,15 @@
 import { ComponentProps, ReactNode } from 'react';
 import Livechat from '@/components/chat/Livechat';
 import useIsLiveChatWidgetAvailable from '@/components/chat/useIsLiveChatWidgetAvailable';
-import { standalone_routes } from '@/components/shared';
 import { useOauth2 } from '@/hooks/auth/useOauth2';
 import useRemoteConfig from '@/hooks/growthbook/useRemoteConfig';
 import { useIsIntercomAvailable } from '@/hooks/useIntercom';
 import useThemeSwitcher from '@/hooks/useThemeSwitcher';
 import RootStore from '@/stores/root-store';
-import {
-    LegacyAccountLimitsIcon,
-    LegacyCashierIcon,
-    LegacyChartsIcon,
-    LegacyHelpCentreIcon,
-    LegacyHomeOldIcon,
-    LegacyLogout1pxIcon,
-    LegacyProfileSmIcon,
-    LegacyResponsibleTradingIcon,
-    LegacyTheme1pxIcon,
-    LegacyWhatsappIcon,
-} from '@deriv/quill-icons/Legacy';
+import { LegacyLogout1pxIcon, LegacyTheme1pxIcon, LegacyWhatsappIcon } from '@deriv/quill-icons/Legacy';
 import { BrandDerivLogoCoralIcon } from '@deriv/quill-icons/Logo';
 import { useTranslations } from '@deriv-com/translations';
 import { ToggleSwitch } from '@deriv-com/ui';
-import { URLConstants } from '@deriv-com/utils';
 
 export type TSubmenuSection = 'accountSettings' | 'cashier';
 
