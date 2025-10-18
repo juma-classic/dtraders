@@ -75,6 +75,14 @@ jobs:
               run: npm ci
               shell: bash
 
+            - name: Copy vendored deriv-charts assets
+              run: |
+                mkdir -p node_modules/@deriv/deriv-charts/dist/chart/assets
+                if [ -d "public/deriv-charts-assets" ] && [ "$(ls -A public/deriv-charts-assets | grep -v README.md | grep -v .gitkeep)" ]; then
+                  cp -r public/deriv-charts-assets/* node_modules/@deriv/deriv-charts/dist/chart/assets/ 2>/dev/null || true
+                fi
+              shell: bash
+
             - name: Build staging
               run: npm run build
               env:
