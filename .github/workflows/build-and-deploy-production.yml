@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Copy vendored @deriv/deriv-charts assets
+        run: |
+          mkdir -p node_modules/@deriv/deriv-charts/dist/chart/assets
+          cp -R public/deriv-charts-assets/. node_modules/@deriv/deriv-charts/dist/chart/assets/
+
       - name: Build Project
         run: npm run build
         env:
