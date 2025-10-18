@@ -17,7 +17,8 @@
         "test": "jest",
         "coverage": "jest --coverage",
         "prepare": "husky install",
-        "build:analyze": "BUNDLE_ANALYZE=true rsbuild build"
+        "build:analyze": "BUNDLE_ANALYZE=true rsbuild build",
+        "postinstall": "node ./scripts/postinstall-deriv-charts.js"
     },
     "dependencies": {
         "@datadog/browser-rum": "^5.31.1",
